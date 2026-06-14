@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{%block title%}西西博客{%endblock%}
+
+{%block main%}
+<h1>博客列表</h1>
+<div class="row row-cols-2 row-gap-4">
+    {% for blog in blogs %}
+    <div class="col ">
+        <div class="card">
+            <div class="card-header">
+                <a href="{% url 'blog:blog_detail' blog_id=blog.id %}">{{blog.title}}</a>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{blog.content|truncatewords_html:200|safe}}</p>
+            </div>
+            <div class="card-footer text-body-secondary d-flex justify-content-between">
+                <div>
+                    <img src="{% static 'images/logo.png'%}" class="rounded-circle" alt="头像" width="25">
+                    <span>{{blog.author.username}}</span>
+                </div>
+                <div>发布时间：{{blog.pub_time|date:'Y-m-d H:i:s'}}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+{%endblock%}
